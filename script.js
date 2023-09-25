@@ -21,16 +21,16 @@ const y = 1;
 function operate(x, operator, y) {
     switch (operator) {
         case add:
-            add(x,y);
+            return add(x,y);
             break;
         case subtract:
-            subtract(x,y);
+            return subtract(x,y);
             break;
         case multiply:
-            multiply(x,y);
+            return multiply(x,y);
             break;
         case divide:
-            divide(x,y);
+            return divide(x,y);
             break;
     }
 }
