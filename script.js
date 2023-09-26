@@ -35,10 +35,16 @@ function operate(x, operator, y) {
     }
 }
 
+function numberOnScreen(number) {
+    const screenP = document.querySelector("div.screen > p");
+    screenP.textContent = number;
+}
+
 const numberButtons = document.querySelectorAll(".number");
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
         const number = numberButton.textContent;
-        console.log(number);
+        numberOnScreen(number);
     })
 })
+
