@@ -35,16 +35,20 @@ function operate(x, operator, y) {
     }
 }
 
+const numberButtons = document.querySelectorAll(".number");
+const screenP = document.querySelector("div.screen > p");
+
+// put numbers on screen
 function numberOnScreen(number) {
-    const screenP = document.querySelector("div.screen > p");
-    screenP.textContent = number;
+    screenP.textContent += number;
 }
 
-const numberButtons = document.querySelectorAll(".number");
+// get cicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
-        const number = numberButton.textContent;
+        let number = numberButton.textContent;
         numberOnScreen(number);
+
     })
 })
 
