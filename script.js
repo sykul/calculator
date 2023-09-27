@@ -48,7 +48,17 @@ numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
         let number = numberButton.textContent;
         numberOnScreen(number);
-
+    
     })
+})
+
+const operators = document.querySelectorAll(".operator");
+operators.forEach(function() {
+    
+})
+
+const equals = document.querySelector("equals");
+equals.addEventListener("click", function() {
+    operate();
 })
 
