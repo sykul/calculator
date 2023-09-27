@@ -1,3 +1,13 @@
+let x = 1;
+let operator = "";
+let y = 1;
+const numberButtons = document.querySelectorAll(".number");
+const screenP = document.querySelector("div.screen > p");
+const operators = document.querySelectorAll(".operator");
+const equals = document.querySelector("equals");
+const clearScreen = document.querySelector(".clearScreen");
+let displayValue = ``;
+
 function add(x,y) {
     return x+y;
 }
@@ -14,9 +24,7 @@ function divide(x,y) {
     return x/y;
 }
 
-const x = 1;
-const operator = "";
-const y = 1;
+
 
 function operate(x, operator, y) {
     switch (operator) {
@@ -35,12 +43,12 @@ function operate(x, operator, y) {
     }
 }
 
-const numberButtons = document.querySelectorAll(".number");
-const screenP = document.querySelector("div.screen > p");
 
 // put numbers on screen
 function numberOnScreen(number) {
-    screenP.textContent += number;
+    if (screenP.textContent.length < 10 ) {
+        screenP.textContent += number;
+    };
 }
 
 // get cicked number
@@ -52,13 +60,11 @@ numberButtons.forEach(function(numberButton) {
     })
 })
 
-const operators = document.querySelectorAll(".operator");
 operators.forEach(function() {
-    
+    displayValue = screenP.textContent;
 })
 
-const equals = document.querySelector("equals");
-equals.addEventListener("click", function() {
+/* equals.addEventListener("click", function() {
     operate();
-})
+}) */
 
