@@ -35,20 +35,27 @@ function operate(x, operator, y) {
     }
 }
 
-const numberButtons = document.querySelectorAll(".number");
-const screenP = document.querySelector("div.screen > p");
-
-// put numbers on screen
 function numberOnScreen(number) {
-    screenP.textContent += number;
+    const screenP = document.querySelector("div.screen > p");
+    screenP.textContent = number;
 }
 
 // get cicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
-        let number = numberButton.textContent;
+        const number = numberButton.textContent;
         numberOnScreen(number);
-
     })
+})
+
+const operators = document.querySelectorAll(".operator");
+operators.forEach(function() {
+    
+})
+
+const equals = document.querySelector("equals");
+equals.addEventListener("click", function() {
+    const screenP = document.querySelector("div.screen > p");
+    operate();
 })
 
