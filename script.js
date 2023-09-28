@@ -51,20 +51,28 @@ function numberOnScreen(number) {
     };
 }
 
-// get cicked number
+// get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
         let number = numberButton.textContent;
         numberOnScreen(number);
-    
     })
 })
 
-operators.forEach(function() {
-    displayValue = screenP.textContent;
+operators.forEach(function(operatorButton) {
+    operatorButton.addEventListener("click", function () {
+    x = screenP.textContent;
+    let selectedOperator = operatorButton.textContent;
+    })
 })
 
 /* equals.addEventListener("click", function() {
     operate();
 }) */
 
+clearScreen.addEventListener("click", function () {
+    screenP.textContent = '';
+    x = 1;
+    operator = "";
+    y = 1;
+})

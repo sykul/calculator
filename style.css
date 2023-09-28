@@ -30,6 +30,6 @@
 }
 
 .number {
-    flex-basis: 100%/3;
+    flex-basis: 33%;
     padding: 30px;
 }
