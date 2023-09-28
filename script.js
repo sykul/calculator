@@ -24,8 +24,6 @@ function divide(x,y) {
     return x/y;
 }
 
-
-
 function operate(x, operator, y) {
     switch (operator) {
         case add:
