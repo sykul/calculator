@@ -1,13 +1,12 @@
-let x;
-let operator = "";
-let y;
+let x = null;
+let selectedOperator = '';
+let y = null;
 const numberButtons = document.querySelectorAll(".number");
 const screenP = document.querySelector("div.screen > p");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector("equals");
 const clearScreen = document.querySelector(".clearScreen");
-let displayValue = ``;
-let 
+let screenText = '';
 
 function add(x,y) {
     return x+y;
@@ -43,29 +42,43 @@ function operate(x, operator, y) {
 }
 
 
-// put numbers on screen
-function numberOnScreen(number) {
-    if (screenP.textContent.length < 10 ) {
-        screenP.textContent = number;
-    };
-}
-
 // get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
-        if (operator = '') {
-            x += numberButton.textContent;
-        }
 
-        let number = numberButton.textContent;
-        numberOnScreen(x);
+
+        if (screenP.textContent.length < 10) {
+            if (selectedOperator == '') {
+                if ( x == null ) {
+                    screenText = numberButton.textContent;
+                    x = numberButton.textContent;
+                }
+                else {
+                    screenText += numberButton.textContent;
+                    x += numberButton.textContent;
+                }
+            } else {
+                if ( y == null ) {
+                    screenText = numberButton.textContent;
+                    y = numberButton.textContent;
+                }
+                else {
+                    screenText += numberButton.textContent;
+                    y += numberButton.textContent;
+                }
+            }
+            screenP.textContent = screenText;
+        }
     })
 })
 
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-    x = screenP.textContent;
-    let selectedOperator = operatorButton.textContent;
+        if (selectedOperator != '') {
+            operate(x, selectedOperator, y);
+        } else {
+            selectedOperator = operatorButton.textContent;
+        }
     })
 })
 
@@ -75,7 +88,7 @@ operators.forEach(function(operatorButton) {
 
 clearScreen.addEventListener("click", function () {
     screenP.textContent = '';
-    x = 1;
-    operator = "";
-    y = 1;
+    x = null;
+    operator = '';
+    y = null;
 })
