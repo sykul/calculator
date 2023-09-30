@@ -1,12 +1,13 @@
-let x = 1;
+let x;
 let operator = "";
-let y = 1;
+let y;
 const numberButtons = document.querySelectorAll(".number");
 const screenP = document.querySelector("div.screen > p");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector("equals");
 const clearScreen = document.querySelector(".clearScreen");
 let displayValue = ``;
+let 
 
 function add(x,y) {
     return x+y;
@@ -47,15 +48,19 @@ function operate(x, operator, y) {
 // put numbers on screen
 function numberOnScreen(number) {
     if (screenP.textContent.length < 10 ) {
-        screenP.textContent += number;
+        screenP.textContent = number;
     };
 }
 
 // get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
+        if (operator = '') {
+            x += numberButton.textContent;
+        }
+
         let number = numberButton.textContent;
-        numberOnScreen(number);
+        numberOnScreen(x);
     })
 })
 
