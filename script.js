@@ -8,39 +8,22 @@ const equals = document.querySelector("equals");
 const clearScreen = document.querySelector(".clearScreen");
 let screenText = '';
 
-function add(x,y) {
-    return x+y;
-}
-
-function subtract(x,y) {
-    return x-y;
-}
-
-function multiply(x,y) {
-    return x*y;
-}
-
-function divide(x,y) {
-    return x/y;
-}
-
 function operate(x, operator, y) {
     switch (operator) {
         case add:
-            return add(x,y);
+            return x+y;
             break;
         case subtract:
-            return subtract(x,y);
+            return x-y;
             break;
         case multiply:
-            return multiply(x,y);
+            return x*y;
             break;
         case divide:
-            return divide(x,y);
+            return x/y;
             break;
     }
 }
-
 
 // get clicked number
 numberButtons.forEach(function(numberButton) {
