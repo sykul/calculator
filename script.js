@@ -13,17 +13,17 @@ function operate(x, selectedOperator, y) {
     y = Number(y);
     switch (selectedOperator) {
         case '+':
-            return Math.round(x+y);
+            return Math.round((x+y)*100)/100;
             break;
         case '-':
-            return Math.round(x-y);
+            return Math.round((x-y)*100)/100;
             break;
         case '×':
-            return Math.round(x*y);
+            return Math.round((x*y)*100)/100;
             break;
         case '÷':
             if (y === 0) {return "Danger, division by zero."}
-            return Math.round(x/y);
+            return Math.round((x/y)*100)/100;
             break;
     }
 }
@@ -78,7 +78,12 @@ operators.forEach(function(operatorButton) {
             selectedOperator = operatorButton.textContent;
         } else if (selectedOperator && x && y) {
             result = operate(x, selectedOperator, y);
-            if (result.toString().length < 10) {
+            if (result == "Danger, division by zero.") {
+                screenP.textContent = result;
+                x = result;
+                y = null;
+                selectedOperator = '';
+            } else if (result.toString().length < 10) {
                 screenP.textContent = result;
                 x = result;
                 y = null;
@@ -95,12 +100,15 @@ operators.forEach(function(operatorButton) {
 // equals
 equals.addEventListener("click", function() {
     result = operate(x, selectedOperator, y);
-    if (result.toString().length < 10) {
+    if (result == "Danger, division by zero.") {
         screenP.textContent = result;
+        x = null;
+    } else if (result.toString().length < 10) {
+        screenP.textContent = result;
+        x = result;
     } else {
         screenP.textContent = "Too big. Start again.";
     }
-    x = null;
     y = null;
     selectedOperator = '';
 })
