@@ -8,18 +8,20 @@ const equals = document.querySelector("equals");
 const clearScreen = document.querySelector(".clearScreen");
 let screenText = '';
 
-function operate(x, operator, y) {
-    switch (operator) {
-        case add:
+function operate(x, selectedOperator, y) {
+    x = Number(x);
+    y = Number(y);
+    switch (selectedOperator) {
+        case '+':
             return x+y;
             break;
-        case subtract:
+        case '-':
             return x-y;
             break;
-        case multiply:
+        case '×':
             return x*y;
             break;
-        case divide:
+        case '÷':
             return x/y;
             break;
     }
@@ -57,10 +59,15 @@ numberButtons.forEach(function(numberButton) {
 
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-        if (selectedOperator != '') {
+        if (selectedOperator != '' && x && y) {
             operate(x, selectedOperator, y);
-        } else {
+        } else if (selectedOperator == '' && x && y) {
+            x = y;
+            y = null;
+            
+        } else if (selectedOperator == '' && x && !y) {
             selectedOperator = operatorButton.textContent;
+            operate(x, selectedOperator, y);
         }
     })
 })
