@@ -29,6 +29,7 @@ function operate(x, selectedOperator, y) {
 }
 
 function writeToScreen(numberButton) {
+
     if (selectedOperator == '') {
         if ( x == null ) {
             screenText = numberButton.textContent;
@@ -54,38 +55,52 @@ function writeToScreen(numberButton) {
 // get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
-        if (screenP.textContent.length < 10) {
-            writeToScreen(numberButton);
-        } else if (screenP.textContent == "Danger, division by zero.") {
-            screenP.textContent = '';
-            x = null;
-            selectedOperator = '';
-            y = null;
-            writeToScreen(numberButton);
-        }
+    
+    if (screenP.textContent === '0') {
+        screenP.textContent = '';
+        screenText = '';
+    }
+
+    if (screenP.textContent.length < 10) {
+        writeToScreen(numberButton);
+    } else if (screenP.textContent == "Danger, division by zero." || screenP.textContent == "Too big. Start again.") {
+        screenP.textContent = '';
+        x = null;
+        selectedOperator = '';
+        y = null;
+        writeToScreen(numberButton);
+    }
     })
 })
 
+// operator buttons
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
+
         if (x && !y) {
             selectedOperator = operatorButton.textContent;
         } else if (selectedOperator && x && y) {
             result = operate(x, selectedOperator, y);
-            screenP.textContent = result;
-            x = result;
-            y = null;
-            selectedOperator = operatorButton.textContent;
-        } else {
-            alert("Situation unaccounted for.");
+            if (result.toString().length < 10) {
+                screenP.textContent = result;
+                x = result;
+                y = null;
+                selectedOperator = operatorButton.textContent;
+            } else {
+                screenP.textContent = "Too big. Start again.";
+                selectedOperator = '';
+                y = null;
+            }
         }
     })
 })
 
+// equals
 equals.addEventListener("click", function() {
     operate(x, selectedOperator, y);
 })
 
+// clear screen
 clearScreen.addEventListener("click", function () {
     screenP.textContent = '';
     x = null;
