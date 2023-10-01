@@ -4,7 +4,7 @@ let y = null;
 const numberButtons = document.querySelectorAll(".number");
 const screenP = document.querySelector("div.screen > p");
 const operators = document.querySelectorAll(".operator");
-const equals = document.querySelector("equals");
+const equals = document.querySelector(".equals");
 const clearScreen = document.querySelector(".clearScreen");
 let screenText = '';
 
@@ -30,8 +30,6 @@ function operate(x, selectedOperator, y) {
 // get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
-
-
         if (screenP.textContent.length < 10) {
             if (selectedOperator == '') {
                 if ( x == null ) {
@@ -59,26 +57,27 @@ numberButtons.forEach(function(numberButton) {
 
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-        if (selectedOperator != '' && x && y) {
-            operate(x, selectedOperator, y);
-        } else if (selectedOperator == '' && x && y) {
-            x = y;
-            y = null;
-            
-        } else if (selectedOperator == '' && x && !y) {
+        if (!selectedOperator && x && !y) {
             selectedOperator = operatorButton.textContent;
-            operate(x, selectedOperator, y);
+        } else if (selectedOperator && x && y) {
+            result = operate(x, selectedOperator, y);
+            screenP.textContent = result;
+            x = result;
+            y = null;
+            selectedOperator = operatorButton.textContent;
+        } else {
+            alert("Situation unaccounted for.")
         }
     })
 })
 
-/* equals.addEventListener("click", function() {
-    operate();
-}) */
+equals.addEventListener("click", function() {
+    operate(x, selectedOperator, y);
+})
 
 clearScreen.addEventListener("click", function () {
     screenP.textContent = '';
     x = null;
-    operator = '';
+    selectedOperator = '';
     y = null;
 })
