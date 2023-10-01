@@ -13,51 +13,62 @@ function operate(x, selectedOperator, y) {
     y = Number(y);
     switch (selectedOperator) {
         case '+':
-            return x+y;
+            return Math.round(x+y);
             break;
         case '-':
-            return x-y;
+            return Math.round(x-y);
             break;
         case '×':
-            return x*y;
+            return Math.round(x*y);
             break;
         case '÷':
-            return x/y;
+            if (y === 0) {return "Danger, division by zero."}
+            return Math.round(x/y);
             break;
     }
+}
+
+function writeToScreen(numberButton) {
+    if (selectedOperator == '') {
+        if ( x == null ) {
+            screenText = numberButton.textContent;
+            x = numberButton.textContent;
+        }
+        else {
+            screenText += numberButton.textContent;
+            x += numberButton.textContent;
+        }
+    } else {
+        if ( y == null ) {
+            screenText = numberButton.textContent;
+            y = numberButton.textContent;
+        }
+        else {
+            screenText += numberButton.textContent;
+            y += numberButton.textContent;
+        }
+    }
+    screenP.textContent = screenText;
 }
 
 // get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
         if (screenP.textContent.length < 10) {
-            if (selectedOperator == '') {
-                if ( x == null ) {
-                    screenText = numberButton.textContent;
-                    x = numberButton.textContent;
-                }
-                else {
-                    screenText += numberButton.textContent;
-                    x += numberButton.textContent;
-                }
-            } else {
-                if ( y == null ) {
-                    screenText = numberButton.textContent;
-                    y = numberButton.textContent;
-                }
-                else {
-                    screenText += numberButton.textContent;
-                    y += numberButton.textContent;
-                }
-            }
-            screenP.textContent = screenText;
+            writeToScreen(numberButton);
+        } else if (screenP.textContent == "Danger, division by zero.") {
+            screenP.textContent = '';
+            x = null;
+            selectedOperator = '';
+            y = null;
+            writeToScreen(numberButton);
         }
     })
 })
 
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-        if (!selectedOperator && x && !y) {
+        if (x && !y) {
             selectedOperator = operatorButton.textContent;
         } else if (selectedOperator && x && y) {
             result = operate(x, selectedOperator, y);
@@ -66,7 +77,7 @@ operators.forEach(function(operatorButton) {
             y = null;
             selectedOperator = operatorButton.textContent;
         } else {
-            alert("Situation unaccounted for.")
+            alert("Situation unaccounted for.");
         }
     })
 })
