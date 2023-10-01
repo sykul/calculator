@@ -29,7 +29,6 @@ function operate(x, selectedOperator, y) {
 }
 
 function writeToScreen(numberButton) {
-
     if (selectedOperator == '') {
         if ( x == null ) {
             screenText = numberButton.textContent;
@@ -55,7 +54,6 @@ function writeToScreen(numberButton) {
 // get clicked number
 numberButtons.forEach(function(numberButton) {
     numberButton.addEventListener("click", function () {
-    
     if (screenP.textContent === '0') {
         screenP.textContent = '';
         screenText = '';
@@ -76,7 +74,6 @@ numberButtons.forEach(function(numberButton) {
 // operator buttons
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-
         if (x && !y) {
             selectedOperator = operatorButton.textContent;
         } else if (selectedOperator && x && y) {
@@ -97,7 +94,15 @@ operators.forEach(function(operatorButton) {
 
 // equals
 equals.addEventListener("click", function() {
-    operate(x, selectedOperator, y);
+    result = operate(x, selectedOperator, y);
+    if (result.toString().length < 10) {
+        screenP.textContent = result;
+    } else {
+        screenP.textContent = "Too big. Start again.";
+    }
+    x = null;
+    y = null;
+    selectedOperator = '';
 })
 
 // clear screen
