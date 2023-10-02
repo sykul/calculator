@@ -3,6 +3,11 @@ body {
     justify-content: center;
 }
 
+@font-face {
+    font-family: monospace;
+    src: url(Digital7-rg1mL.ttf);
+}
+
 .calculator {
     display: flex;
     width: 400px;
@@ -18,13 +23,6 @@ body {
     height: 100px;
     background-color: beige;
     font-family: monospace;
-}
-
-.screen {
-    width: 400px;
-    height: 100px;
-    background-color: beige;
-    font-family: 'Digital-7';
 }
 
 .buttons {
