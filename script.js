@@ -51,9 +51,7 @@ function writeToScreen(numberButton) {
     screenP.textContent = screenText;
 }
 
-// get clicked number
-numberButtons.forEach(function(numberButton) {
-    numberButton.addEventListener("click", function () {
+function getClickedNumber(numberButton) {
     if (screenP.textContent === '0') {
         screenP.textContent = '';
         screenText = '';
@@ -68,32 +66,42 @@ numberButtons.forEach(function(numberButton) {
         y = null;
         writeToScreen(numberButton);
     }
+}
+
+function getClickedOperator(operatorButton) {
+    if (x && !y || x == 0 && !y) {
+        selectedOperator = operatorButton.textContent;
+    } else if (selectedOperator && (x || x == 0) && (y || y == 0)) {
+        result = operate(x, selectedOperator, y);
+        if (result == "Danger, division by zero.") {
+            screenP.textContent = result;
+            x = result;
+            y = null;
+            selectedOperator = '';
+        } else if (result.toString().length < 10) {
+            screenP.textContent = result;
+            x = result;
+            y = null;
+            selectedOperator = operatorButton.textContent;
+        } else {
+            screenP.textContent = "Too big. Start again.";
+            selectedOperator = '';
+            y = null;
+        }
+    }
+}
+
+// get clicked number
+numberButtons.forEach(function(numberButton) {
+    numberButton.addEventListener("click", function () {
+        getClickedNumber(numberButton);
     })
 })
 
 // operator buttons
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-        if (x && !y) {
-            selectedOperator = operatorButton.textContent;
-        } else if (selectedOperator && x && y) {
-            result = operate(x, selectedOperator, y);
-            if (result == "Danger, division by zero.") {
-                screenP.textContent = result;
-                x = result;
-                y = null;
-                selectedOperator = '';
-            } else if (result.toString().length < 10) {
-                screenP.textContent = result;
-                x = result;
-                y = null;
-                selectedOperator = operatorButton.textContent;
-            } else {
-                screenP.textContent = "Too big. Start again.";
-                selectedOperator = '';
-                y = null;
-            }
-        }
+        getClickedOperator(operatorButton);
     })
 })
 
@@ -106,8 +114,10 @@ equals.addEventListener("click", function() {
     } else if (result.toString().length < 10) {
         screenP.textContent = result;
         x = result;
-    } else {
+    } else if (result.toString().length >= 10) {
         screenP.textContent = "Too big. Start again.";
+    } else {
+        screenP.textContent = "uh oh";
     }
     y = null;
     selectedOperator = '';
