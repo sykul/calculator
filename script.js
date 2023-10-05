@@ -2,11 +2,12 @@ let x = null;
 let selectedOperator = '';
 let y = null;
 const numberButtons = document.querySelectorAll(".number");
-const screenP = document.querySelector("div.screen > p");
+const screenDiv = document.querySelector("body > div > div.screen");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const clearScreen = document.querySelector(".clearScreen");
 let screenText = '';
+let result;
 
 function operate(x, selectedOperator, y) {
     x = Number(x);
@@ -48,7 +49,7 @@ function writeToScreen(numberButton) {
             y += numberButton.textContent;
         }
     }
-    screenP.textContent = screenText;
+    screenDiv.textContent = screenText;
 }
 
 function getClickedNumber(numberButton) {
@@ -57,51 +58,41 @@ function getClickedNumber(numberButton) {
         screenText = '';
     }
 
-    if (screenP.textContent.length < 10) {
+    if (screenDiv.textContent.length < 10) {
         writeToScreen(numberButton);
-    } else if (screenP.textContent == "Danger, division by zero." || screenP.textContent == "Too big. Start again.") {
-        screenP.textContent = '';
+    } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
+        screenDiv.textContent = '';
         x = null;
         selectedOperator = '';
         y = null;
         writeToScreen(numberButton);
     }
-}
-
-function getClickedOperator(operatorButton) {
-    if (x && !y || x == 0 && !y) {
-        selectedOperator = operatorButton.textContent;
-    } else if (selectedOperator && (x || x == 0) && (y || y == 0)) {
-        result = operate(x, selectedOperator, y);
-        if (result == "Danger, division by zero.") {
-            screenP.textContent = result;
-            x = result;
-            y = null;
-            selectedOperator = '';
-        } else if (result.toString().length < 10) {
-            screenP.textContent = result;
-            x = result;
-            y = null;
-            selectedOperator = operatorButton.textContent;
-        } else {
-            screenP.textContent = "Too big. Start again.";
-            selectedOperator = '';
-            y = null;
-        }
-    }
-}
-
-// get clicked number
-numberButtons.forEach(function(numberButton) {
-    numberButton.addEventListener("click", function () {
-        getClickedNumber(numberButton);
     })
 })
 
 // operator buttons
 operators.forEach(function(operatorButton) {
     operatorButton.addEventListener("click", function () {
-        getClickedOperator(operatorButton);
+        if (x && !y) {
+            selectedOperator = operatorButton.textContent;
+        } else if (selectedOperator && x && y) {
+            result = operate(x, selectedOperator, y);
+            if (result == "Danger, division by zero.") {
+                screenP.textContent = result;
+                x = result;
+                y = null;
+                selectedOperator = '';
+            } else if (result.toString().length < 10) {
+                screenP.textContent = result;
+                x = result;
+                y = null;
+                selectedOperator = operatorButton.textContent;
+            } else {
+                screenP.textContent = "Too big. Start again.";
+                selectedOperator = '';
+                y = null;
+            }
+        }
     })
 })
 
@@ -114,10 +105,8 @@ equals.addEventListener("click", function() {
     } else if (result.toString().length < 10) {
         screenP.textContent = result;
         x = result;
-    } else if (result.toString().length >= 10) {
-        screenP.textContent = "Too big. Start again.";
     } else {
-        screenP.textContent = "uh oh";
+        screenP.textContent = "Too big. Start again.";
     }
     y = null;
     selectedOperator = '';
@@ -125,7 +114,7 @@ equals.addEventListener("click", function() {
 
 // clear screen
 clearScreen.addEventListener("click", function () {
-    screenP.textContent = '';
+    screenDiv.textContent = '';
     x = null;
     selectedOperator = '';
     y = null;
