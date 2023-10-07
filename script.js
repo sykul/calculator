@@ -15,17 +15,17 @@ function operate(x, selectedOperator, y) {
     y = Number(y);
     switch (selectedOperator) {
         case '+':
-            return x+y > 999999999 ? x+y : Number((x+y).toString().substring(0,9));
+            return x+y > 9999999999 ? x+y : Number((x+y).toString().substring(0,10));
             break;
         case '-':
-            return x-y > 999999999 ? x-y : Number((x-y).toString().substring(0,9));
+            return x-y > 9999999999 ? x-y : Number((x-y).toString().substring(0,10));
             break;
         case '×':
-            return x*y > 999999999 ? x*y : Number((x*y).toString().substring(0,9));
+            return x*y > 9999999999 ? x*y : Number((x*y).toString().substring(0,10));
             break;
         case '÷':
             if (y === 0) {return "Danger, division by zero."}
-            return x/y > 999999999 ? x/y : Number((x/y).toString().substring(0,9));
+            return x/y > 9999999999 ? x/y : Number((x/y).toString().substring(0,10));
             break;
     }
 }
