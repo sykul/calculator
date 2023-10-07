@@ -9,6 +9,7 @@ const clearScreen = document.querySelector(".clearScreen");
 let screenText = '';
 let result;
 
+
 function operate(x, selectedOperator, y) {
     x = Number(x);
     y = Number(y);
@@ -31,9 +32,10 @@ function operate(x, selectedOperator, y) {
 
 function writeToScreen(numberButton) {
     if (selectedOperator == '') {
-        if ( x == null ) {
+        if ( x == null || equalsClicked) {
             screenText = numberButton.textContent;
             x = numberButton.textContent;
+            equalsClicked = false;
         }
         else {
             screenText += numberButton.textContent;
@@ -53,8 +55,8 @@ function writeToScreen(numberButton) {
 }
 
 function getClickedNumber(numberButton) {
-    if (screenP.textContent === '0') {
-        screenP.textContent = '';
+    if (screenDiv.textContent === '0') {
+        screenDiv.textContent = '';
         screenText = '';
     }
 
@@ -67,6 +69,13 @@ function getClickedNumber(numberButton) {
         y = null;
         writeToScreen(numberButton);
     }
+}
+
+// number buttons
+numberButtons.forEach(function(numberButton) {
+    numberButton.addEventListener("click", function() {
+        getClickedNumber(numberButton);
+    })
 })
 
 // operator buttons
@@ -77,17 +86,17 @@ operators.forEach(function(operatorButton) {
         } else if (selectedOperator && x && y) {
             result = operate(x, selectedOperator, y);
             if (result == "Danger, division by zero.") {
-                screenP.textContent = result;
+                screenDiv.textContent = result;
                 x = result;
                 y = null;
                 selectedOperator = '';
             } else if (result.toString().length < 10) {
-                screenP.textContent = result;
+                screenDiv.textContent = result;
                 x = result;
                 y = null;
                 selectedOperator = operatorButton.textContent;
             } else {
-                screenP.textContent = "Too big. Start again.";
+                screenDiv.textContent = "Too big. Start again.";
                 selectedOperator = '';
                 y = null;
             }
@@ -99,16 +108,18 @@ operators.forEach(function(operatorButton) {
 equals.addEventListener("click", function() {
     result = operate(x, selectedOperator, y);
     if (result == "Danger, division by zero.") {
-        screenP.textContent = result;
+        screenDiv.textContent = result;
         x = null;
     } else if (result.toString().length < 10) {
-        screenP.textContent = result;
+        screenDiv.textContent = result;
         x = result;
     } else {
-        screenP.textContent = "Too big. Start again.";
+        screenDiv.textContent = "Too big. Start again.";
     }
     y = null;
     selectedOperator = '';
+    screenText = '';
+    equalsClicked = true;
 })
 
 // clear screen
