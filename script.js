@@ -67,7 +67,6 @@ function getClickedNumber(numberButton) {
         y = null;
         writeToScreen(numberButton);
     }
-    })
 })
 
 // operator buttons
