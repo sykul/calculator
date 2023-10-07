@@ -59,16 +59,52 @@ function getClickedNumber(numberButton) {
         screenDiv.textContent = '';
         screenText = '';
     }
+    if (!x) {
+        writeToScreen(numberButton);
+    } else if (x && !y && !selectedOperator) {
+        if (x.toString().length < 10) {
+            writeToScreen(numberButton);
+        } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
+            screenDiv.textContent = '';
+            x = null;
+            selectedOperator = '';
+            y = null;
+            writeToScreen(numberButton);
+        } else if (!x || x && x.toString().length >= 10) {
 
-    if (screenDiv.textContent.length < 10) {
-        writeToScreen(numberButton);
-    } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
-        screenDiv.textContent = '';
-        x = null;
-        selectedOperator = '';
-        y = null;
-        writeToScreen(numberButton);
+        } else {
+            alert("situation not accounted for")
+        }
+    } else if (x && !y && selectedOperator) {
+        if (!y || y.toString().length < 10) {
+            writeToScreen(numberButton);
+        } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
+            screenDiv.textContent = '';
+            x = null;
+            selectedOperator = '';
+            y = null;
+            writeToScreen(numberButton);
+        } else if (y.toString().length >= 10) {
+
+        } else {
+            alert("situation not accounted for")
+        }
+    } else if (x && y) {
+        if (y.toString().length < 10) {
+            writeToScreen(numberButton);
+        } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
+            screenDiv.textContent = '';
+            x = null;
+            selectedOperator = '';
+            y = null;
+            writeToScreen(numberButton);
+        } else if (y.toString().length >= 10) {
+    
+        } else {
+            alert("situation not accounted for")
+        }
     }
+
 }
 
 // number buttons
