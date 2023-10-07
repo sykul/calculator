@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Digital7';
+    src: url('Digital7.ttf');
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -10,17 +15,17 @@ body {
     justify-content: center;
     border: 10px black solid;
     border-radius: 15px;
-
 }
 
 .screen {
     width: 400px;
-    height: 100px;
+    height: 80px;
     background-color: beige;
-    font-family: 'Pixelify Sans';
+    font-family: 'Digital7';
     font-size: 50px;
     text-align: right;
-    vertical-align: middle;
+    align-content: center;
+    padding-top: 30px;
 }
 
 .buttons {
