@@ -54,6 +54,22 @@ function writeToScreen(numberButton) {
     screenDiv.textContent = screenText;
 }
 
+function checkAndWriteToScreen(variable, numberButton) {
+    if (variable == null || variable.toString().length < 10) {
+        writeToScreen(numberButton);
+    } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
+        screenDiv.textContent = '';
+        x = null;
+        selectedOperator = '';
+        y = null;
+        writeToScreen(numberButton);
+    } else if (!variable || variable && variable.toString().length >= 10) {
+
+    } else {
+        alert("situation not accounted for")
+    }
+}
+
 function getClickedNumber(numberButton) {
     if (screenDiv.textContent === '0') {
         screenDiv.textContent = '';
@@ -62,47 +78,11 @@ function getClickedNumber(numberButton) {
     if (!x) {
         writeToScreen(numberButton);
     } else if (x && !y && !selectedOperator) {
-        if (x.toString().length < 10) {
-            writeToScreen(numberButton);
-        } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
-            screenDiv.textContent = '';
-            x = null;
-            selectedOperator = '';
-            y = null;
-            writeToScreen(numberButton);
-        } else if (!x || x && x.toString().length >= 10) {
-
-        } else {
-            alert("situation not accounted for")
-        }
-    } else if (x && !y && selectedOperator) {
-        if (!y || y.toString().length < 10) {
-            writeToScreen(numberButton);
-        } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
-            screenDiv.textContent = '';
-            x = null;
-            selectedOperator = '';
-            y = null;
-            writeToScreen(numberButton);
-        } else if (y.toString().length >= 10) {
-
-        } else {
-            alert("situation not accounted for")
-        }
-    } else if (x && y) {
-        if (y.toString().length < 10) {
-            writeToScreen(numberButton);
-        } else if (screenDiv.textContent == "Danger, division by zero." || screenDiv.textContent == "Too big. Start again.") {
-            screenDiv.textContent = '';
-            x = null;
-            selectedOperator = '';
-            y = null;
-            writeToScreen(numberButton);
-        } else if (y.toString().length >= 10) {
-    
-        } else {
-            alert("situation not accounted for")
-        }
+        checkAndWriteToScreen(x, numberButton);
+    } else if (x && !y && selectedOperator || x && y) {
+        checkAndWriteToScreen(y, numberButton);
+    } else {
+        alert("situ not accounted for")
     }
 
 }
